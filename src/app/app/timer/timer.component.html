@@ -1,0 +1,5 @@
+<div class="counter">{{counter$ | async}}</div>
+<button (click)="startCounter()" [disabled]="start">START</button>
+<button (click)="pauseCounter()" [disabled]="pause">PAUSE</button>
+<button (click)="resumeCounter()" [disabled]="resume">RESUME</button>
+<button (click)="resetCounter()" [disabled]="reset">RESET</button>
