@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EMPTY, iif, interval, merge, observable, Observable, of, Subject } from 'rxjs';
-import { filter, map, startWith, switchMap, switchMapTo, takeUntil } from 'rxjs/operators';
+import { EMPTY, interval, merge, of, Subject } from 'rxjs';
+import { map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-timer',
@@ -24,17 +24,33 @@ export class TimerComponent implements OnInit {
     this.button$.pipe(
       switchMap((status) => {
         if (status === 'START') {
-          return interval(1000).pipe(map(v => { this.curVal = v + 1; return this.curVal; } ));
+          return interval(0).pipe(map(v => { this.curVal = v + 1; return this.curVal; } ));
         }
         if (status === 'PAUSE') {
           return EMPTY;
         }
         if (status === 'RESUME') {
-          return interval(1000).pipe(map(v => { this.curVal = this.curVal + 1; return this.curVal; }));
+          return interval(0).pipe(map(v => { this.curVal = this.curVal + 1; return this.curVal; }));
         }
         return of(0);
       })
     )
+  );
+
+  mili$ = this.counter$.pipe(
+    map(x => x % 1000)
+  );
+
+  second$ = this.counter$.pipe(
+    map(x => Math.trunc((x / 1000) % 60))
+  );
+
+  minute$ = this.counter$.pipe(
+    map(x => Math.trunc((x / 60000) % 60))
+  );
+
+  hour$ = this.counter$.pipe(
+    map(x => Math.trunc((x / 3600000)))
   );
 
   ngOnInit(): void {

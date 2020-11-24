@@ -1,4 +1,4 @@
-<div class="counter">{{counter$ | async}}</div>
+<div class="counter">{{hour$ | async}}:{{minute$ | async}}:{{second$ | async}}:{{mili$ | async}}</div>
 <button (click)="startCounter()" [disabled]="start">START</button>
 <button (click)="pauseCounter()" [disabled]="pause">PAUSE</button>
 <button (click)="resumeCounter()" [disabled]="resume">RESUME</button>
